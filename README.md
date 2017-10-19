@@ -14,13 +14,11 @@
 
 <!--
 ```
-<custom-element-demo>
+<vaadin-notification>
   <template>
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="vaadin-notification.html">
-    <next-code-block></next-code-block>
+    Sample notification
   </template>
-</custom-element-demo>
+</vaadin-notification>
 ```
 -->
 ```html
