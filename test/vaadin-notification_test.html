@@ -1,0 +1,78 @@
+<!doctype html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>vaadin-notification tests</title>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../vaadin-notification.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <vaadin-notification>
+        <template>
+          Your work has been saved
+        </template>
+      </vaadin-notification>
+    </template>
+  </test-fixture>
+
+  <script>
+    describe('vaadin-notification', function() {
+      var notification, overlay;
+
+      beforeEach(() => {
+        notification = fixture('default');
+        overlay = notification.shadowRoot.querySelector('vaadin-notification-overlay');
+      });
+
+      describe('a11y', () => {
+        it('overlay should have the `alert` role', () => {
+          expect(overlay.getAttribute('role')).to.be.equal('alert');
+        });
+
+        it('overlay should have `aria-live="polite"`', () => {
+          expect(overlay.getAttribute('aria-live')).to.be.equal('polite');
+        });
+      });
+
+      describe('methods', () => {
+        it('open() set opened true', () => {
+          notification.open();
+          expect(notification.opened).to.be.true;
+        });
+
+        it('close() set opened false', () => {
+          notification.open();
+          notification.close();
+          expect(notification.opened).to.be.false;
+        });
+      });
+
+      describe('duration', () => {
+        it('should set _durationTimeout and close itself after 10ms', (done) => {
+          notification.duration = 10;
+          notification.open();
+          expect(notification._durationTimeout).not.to.be.null;
+          setTimeout(() => {
+            expect(notification.opened).to.eql(false);
+            done();
+          }, 10);
+        });
+
+        it('should set _durationTimeout to null if duration is negative', () => {
+          notification.duration = -10;
+          notification.open();
+          expect(notification._durationTimeout).to.be.null;
+        });
+
+        it('should set _durationTimeout to null if duration is 0', () => {
+          notification.duration = 0;
+          notification.open();
+          expect(notification._durationTimeout).to.be.null;
+        });
+      });
+    });
+  </script>
+</body>

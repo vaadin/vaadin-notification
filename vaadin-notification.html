@@ -5,7 +5,18 @@ This program is available under Apache License Version 2.0, available at https:/
 -->
 
 <link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../vaadin-themable-mixin/vaadin-themable-mixin.html">
+<link rel="import" href="../vaadin-overlay/vaadin-overlay.html">
+
+<dom-module id="vaadin-notification-overlay-default-theme" theme-for="vaadin-notification-overlay">
+  <template>
+    <style>
+      :host {
+        align-items: flex-start;
+        justify-content: flex-end;
+      }
+    </style>
+  </template>
+</dom-module>
 
 <dom-module id="vaadin-notification">
   <template>
@@ -14,32 +25,119 @@ This program is available under Apache License Version 2.0, available at https:/
         display: inline-block;
       }
     </style>
-    <slot></slot>
+
+    <vaadin-notification-overlay id="overlay"
+      modeless
+      opened="{{opened}}"
+      role="alert"
+      aria-live="polite">
+    </vaadin-notification-overlay>
   </template>
 
   <script>
     {
       /**
+       * The overlay element.
+       *
+       * ### Styling
+       *
+       * See [`<vaadin-overlay>` documentation](https://github.com/vaadin/vaadin-overlay/blob/master/vaadin-overlay.html)
+       * for `<vaadin-notification-overlay>` parts.
+       *
+       * @memberof Vaadin
+       */
+      class VaadinNotificationOverlay extends Vaadin.OverlayElement {
+        static get is() {
+          return 'vaadin-notification-overlay';
+        }
+      }
+
+      customElements.define(VaadinNotificationOverlay.is, VaadinNotificationOverlay);
+
+      /**
        * `<vaadin-notification>` is a Polymer 2 element providing accessible and customizable notifications (toasts).
        *
        * ```
        * <vaadin-notification>
-       *   Your work has been saved
+       *   <template>
+       *     Your work has been saved
+       *   </template>
        * </vaadin-notification>
        * ```
        *
        * @memberof Vaadin
-       * @mixes Vaadin.ThemableMixin
        * @demo demo/index.html
        */
-      class NotificationElement extends Vaadin.ThemableMixin(Polymer.Element) {
+      class NotificationElement extends (class extends Polymer.Element {}) {
         static get is() {
           return 'vaadin-notification';
         }
 
         static get properties() {
           return {
+            /**
+             * The duration in milliseconds to show the notification.
+             * Set to `0` or a negative number to disable the notification auto-closing.
+             */
+            duration: {
+              type: Number,
+              value: 3000
+            },
+
+            /**
+             * True if the notification is currently displayed.
+             */
+            opened: {
+              type: Boolean,
+              value: false,
+              notify: true,
+              observer: '_openedChanged'
+            },
+
+            _contentTemplate: Object
           };
+        }
+
+        open() {
+          this.opened = true;
+        }
+
+        close() {
+          this.opened = false;
+        }
+
+        _openedChanged(opened) {
+          if (opened) {
+            if (!this._instance) {
+              this._contentTemplate = this.querySelector('template');
+              const Templatizer = Polymer.Templatize.templatize(this._contentTemplate, this, {
+                instanceProps: {
+                  detail: true,
+                  target: true
+                }
+              });
+              this._instance = new Templatizer({});
+
+              this.$.overlay.content = this._instance.root;
+
+              // remove ID to avoid app styles applied to the overlay
+              this.$.overlay.removeAttribute('id');
+
+              // a11y
+              this.$.overlay.setAttribute('aria-label', this.$.overlay.shadowRoot.querySelector('[part="content"]').textContent);
+            }
+
+            if (this.duration > 0) {
+              this._durationTimeout = setTimeout(() => {
+                this.close();
+              }, this.duration);
+            } else {
+              this._durationTimeout = null;
+            }
+
+          } else {
+            this._durationTimeout && clearTimeout(this._durationTimeout);
+          }
         }
       }
 
