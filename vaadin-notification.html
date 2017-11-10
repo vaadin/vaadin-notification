@@ -11,8 +11,19 @@ This program is available under Apache License Version 2.0, available at https:/
   <template>
     <style>
       [part="content"] {
-        justify-content: space-between;
-        padding: 8px;
+        padding: 4px
+      }
+
+      [part^="top-"],
+      [part^="bottom-"],
+      [part="middle"] {
+        padding: 0 4px;
+      }
+
+      [part^="top-"] > *,
+      [part^="bottom-"] > *,
+      [part="middle"] > *{
+        margin: 4px 0;
       }
     </style>
   </template>
@@ -150,18 +161,17 @@ This program is available under Apache License Version 2.0, available at https:/
     <style>
       :host {
         padding: 8px;
-        min-width: 250px;
-        max-width: 100%;
+        width: 100%;
+        max-width: 250px;
         font-size: 12px;
         background: lightgrey;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
-        margin: 5px 0;
         max-height: 15em;
       }
 
-      @media screen and (max-width: 800px) {
+      @media screen and (max-width: 420px) {
         :host {
-          min-width: calc(100% - 5px);
+          max-width: initial;
         }
       }
     </style>
@@ -185,7 +195,7 @@ This program is available under Apache License Version 2.0, available at https:/
 <dom-module id="vaadin-notification">
   <template>
     <style>
-      vaadin-notification-card {
+      :host {
         display: none;
       }
     </style>
