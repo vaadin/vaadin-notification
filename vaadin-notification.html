@@ -11,8 +11,19 @@ This program is available under Apache License Version 2.0, available at https:/
   <template>
     <style>
       [part="content"] {
-        justify-content: space-between;
-        padding: 8px;
+        padding: 4px;
+      }
+
+      [part^="top-"],
+      [part^="bottom-"],
+      [part="middle"] {
+        padding: 0 4px;
+      }
+
+      [part^="top-"] > *,
+      [part^="bottom-"] > *,
+      [part="middle"] > * {
+        margin: 4px 0;
       }
     </style>
   </template>
@@ -90,7 +101,7 @@ This program is available under Apache License Version 2.0, available at https:/
         align-self: center;
       }
 
-      @media screen and (max-width: 420px) {
+      @media (max-width: 420px) {
         [part=content] {
           justify-content: flex-start;
         }
@@ -98,19 +109,19 @@ This program is available under Apache License Version 2.0, available at https:/
         [part="top"],
         [part="bottom"] {
           flex-direction: column;
-          flex: initial;
-          flex-basis: initial;
+          flex: inherit;
+          flex-basis: inherit;
         }
 
         [part="top"] > [part],
         [part="bottom"] > [part] {
           flex: 1;
-          flex-basis: initial;
+          flex-basis: inherit;
         }
 
         [part="middle"] {
           position: relative;
-          margin: initial;
+          margin: inherit;
           flex: 1;
         }
 
@@ -118,7 +129,7 @@ This program is available under Apache License Version 2.0, available at https:/
         [part^="top-"] > *,
         [part^="bottom-"] > *,
         [part$="-center"] > * {
-          align-self: initial;
+          align-self: inherit;
         }
       }
     </style>
@@ -150,18 +161,17 @@ This program is available under Apache License Version 2.0, available at https:/
     <style>
       :host {
         padding: 8px;
-        min-width: 250px;
-        max-width: 100%;
+        width: 100%;
+        max-width: 250px;
         font-size: 12px;
         background: lightgrey;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
-        margin: 5px 0;
         max-height: 15em;
       }
 
-      @media screen and (max-width: 800px) {
+      @media (max-width: 420px) {
         :host {
-          min-width: calc(100% - 5px);
+          max-width: inherit;
         }
       }
     </style>
@@ -185,7 +195,7 @@ This program is available under Apache License Version 2.0, available at https:/
 <dom-module id="vaadin-notification">
   <template>
     <style>
-      vaadin-notification-card {
+      :host {
         display: none;
       }
     </style>
