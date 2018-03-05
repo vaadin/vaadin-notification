@@ -14,8 +14,10 @@
             <vaadin-button on-click="_openNotification">Open notification</vaadin-button>
             <vaadin-notification duration="4000" id="notification">
               <template>
-                <b>Notice</b><br>
-                This notification has HTML content
+                <div>
+                  <b>Notice</b><br>
+                  This notification has HTML content
+                </div>
               </template>
             </vaadin-notification>
           </template>
@@ -82,7 +84,6 @@
             <vaadin-notification id="noti-elm" duration="0" position="bottom-end">
               <template>
                 This notification remains opened until the button inside is clicked.
-                <br/>
                 <vaadin-button on-click="_close">Close</vaadin-button>
               </template>
             </vaadin-notification>
@@ -110,7 +111,7 @@
         <script>
           window.showNotification = function() {
             const template = document.createElement('template');
-            template.innerHTML = '<b>Alert</b><br>This is a dynamic notification created with JavaScript';
+            template.innerHTML = '<div><b>Alert</b><br>This is a dynamic notification created with JavaScript</div>';
 
             const notify = document.createElement('vaadin-notification');
             notify.position = 'middle';
