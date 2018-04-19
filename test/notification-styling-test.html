@@ -184,12 +184,15 @@
             return notificationCard.getAttribute('is');
           }
           it('should use is value for builtin elements', () => {
+            const template = document.createElement('template');
+            template.innerHTML = 'is-builtin-element';
+            const notification = document.createElement('vaadin-notification');
+            notification.appendChild(template);
             const owner = document.createElement('div');
-            document.body.appendChild(owner);
             owner.setAttribute('is', 'is-builtin-element');
             owner.attachShadow({mode: 'open'});
-            owner.shadowRoot.innerHTML = '<vaadin-notification><template>is-builtin-element</template></vaadin-notification>';
-            const notification = owner.shadowRoot.querySelector('vaadin-notification');
+            owner.shadowRoot.appendChild(notification);
+            document.body.appendChild(owner);
             const notificationCard = notification.shadowRoot.querySelector('vaadin-notification-card');
             const notificationCardContent = notificationCard.shadowRoot.querySelector('[part~="content"]');
             notification.open();
