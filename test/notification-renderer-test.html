@@ -28,12 +28,11 @@
 
   <script>
     describe('vaadin-notification', function() {
-      let rendererContent, renderModel;
+      let rendererContent;
 
       beforeEach(function() {
         rendererContent = document.createElement('p');
         rendererContent.innerText = 'renderer-content';
-        renderModel = {selected: true};
       });
 
       describe('without template', () => {
@@ -112,7 +111,6 @@
           expect(notification._card.textContent.trim()).to.equal('notification-content');
         });
       });
-
-   });
+    });
   </script>
 </body>

@@ -34,6 +34,32 @@
       </template>
     </vaadin-demo-snippet>
 
+    <h3>Using renderer</h3>
+    <vaadin-demo-snippet id="notification-basic-demos-renderer-notification">
+      <template preserve-content>
+        <dom-bind id="bind-elm">
+          <template>
+            <vaadin-button on-click="_openNotification">Open notification</vaadin-button>
+            <vaadin-notification duration="0" id="notification"></vaadin-notification>
+          </template>
+        </dom-bind>
+        <script>
+          window.addDemoReadyListener('#notification-basic-demos-renderer-notification', function(document) {
+            const domBind = document.querySelector('#bind-elm');
+            const notification = document.querySelector('#notification');
+
+            const paragraph = window.document.createElement('p');
+            paragraph.innerText = 'This content was generated with renderer';
+            notification.renderer = root => root.appendChild(paragraph);
+
+            domBind._openNotification = function() {
+              notification.open();
+            };
+          });
+        </script>
+      </template>
+    </vaadin-demo-snippet>
+
     <h3>Position</h3>
     <vaadin-demo-snippet id="notification-basic-demos-position-notification">
       <template preserve-content>
