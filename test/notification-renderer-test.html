@@ -61,7 +61,7 @@
         });
 
         it('renderer should receive notification as owner when it is defined', () => {
-          notification.renderer = (root, model, owner) => expect(owner).to.eql(notification._card);
+          notification.renderer = (root, owner) => expect(owner).to.eql(notification);
         });
 
         it('should use only renderer when template was assigned after renderer', done => {

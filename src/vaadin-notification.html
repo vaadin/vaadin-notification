@@ -254,11 +254,9 @@ This program is available under Apache License Version 2.0, available at https:/
 
             /**
              * Custom function for rendering the content of the overlay.
-             * Receives arguments `root`, `model`, `owner`
+             * Receives arguments `root`, `owner`
              *
              * `root` The root container element. Users are able to append content to it.
-             *
-             * `model` Object with properties that could be required during the rendering process.
              *
              * `owner` The host element of the renderer function.
              *
@@ -394,7 +392,7 @@ This program is available under Apache License Version 2.0, available at https:/
           }
 
           if (renderer) {
-            this.renderer(this._card, null, this._card);
+            this.renderer(this._card, this);
           } else {
             this._ensureTemplatized();
           }
