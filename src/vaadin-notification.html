@@ -254,18 +254,13 @@ This program is available under Apache License Version 2.0, available at https:/
 
             /**
              * Custom function for rendering the content of the notification.
-             * Receives arguments `root`, `owner`, `model`
+             * Receives arguments `root`, `notification`, `model`
              *
              * `root` the `vaadin-notification-card` container element.
              *
-             * `owner` the `<vaadin-notification>` element.
-             *
-             * `model` null
+             * `notification` the reference to the notification element.
              *
              * **NOTE:** The renderer callback can be called multiple times with the previous content.
-             *
-             * **NOTE:** `notification` does not have any specific properties to pass with the `model` object,
-             * it is set to null.
              */
             renderer: {
               type: Function,

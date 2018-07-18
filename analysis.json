@@ -8,11 +8,11 @@
       "sourceRange": {
         "file": "src/vaadin-notification.html",
         "start": {
-          "line": 473,
+          "line": 467,
           "column": 6
         },
         "end": {
-          "line": 473,
+          "line": 467,
           "column": 62
         }
       },
@@ -421,11 +421,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 301,
+                  "line": 296,
                   "column": 8
                 },
                 "end": {
-                  "line": 307,
+                  "line": 302,
                   "column": 9
                 }
               },
@@ -507,15 +507,15 @@
             {
               "name": "renderer",
               "type": "Function | null | undefined",
-              "description": "Custom function for rendering the content of the notification.\nReceives arguments `root`, `owner`, `model`\n\n`root` the `vaadin-notification-card` container element.\n\n`owner` the `<vaadin-notification>` element.\n\n`model` null\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.\n\n**NOTE:** `notification` does not have any specific properties to pass with the `model` object,\nit is set to null.",
+              "description": "Custom function for rendering the content of the notification.\nReceives arguments `root`, `notification`, `model`\n\n`root` the `vaadin-notification-card` container element.\n\n`notification` the reference to the notification element.\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.",
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 269,
+                  "line": 264,
                   "column": 12
                 },
                 "end": {
-                  "line": 272,
+                  "line": 267,
                   "column": 13
                 }
               },
@@ -533,11 +533,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 277,
+                  "line": 272,
                   "column": 12
                 },
                 "end": {
-                  "line": 277,
+                  "line": 272,
                   "column": 28
                 }
               },
@@ -555,11 +555,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 290,
+                  "line": 285,
                   "column": 8
                 },
                 "end": {
-                  "line": 292,
+                  "line": 287,
                   "column": 9
                 }
               },
@@ -575,11 +575,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 297,
+                  "line": 292,
                   "column": 8
                 },
                 "end": {
-                  "line": 299,
+                  "line": 294,
                   "column": 9
                 }
               },
@@ -595,11 +595,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 309,
+                  "line": 304,
                   "column": 8
                 },
                 "end": {
-                  "line": 320,
+                  "line": 315,
                   "column": 9
                 }
               },
@@ -619,11 +619,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 322,
+                  "line": 317,
                   "column": 8
                 },
                 "end": {
-                  "line": 379,
+                  "line": 374,
                   "column": 9
                 }
               },
@@ -639,11 +639,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 381,
+                  "line": 376,
                   "column": 8
                 },
                 "end": {
-                  "line": 389,
+                  "line": 384,
                   "column": 9
                 }
               },
@@ -659,11 +659,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 391,
+                  "line": 386,
                   "column": 8
                 },
                 "end": {
-                  "line": 404,
+                  "line": 398,
                   "column": 9
                 }
               },
@@ -683,11 +683,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 406,
+                  "line": 400,
                   "column": 8
                 },
                 "end": {
-                  "line": 423,
+                  "line": 417,
                   "column": 9
                 }
               },
@@ -703,11 +703,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 425,
+                  "line": 419,
                   "column": 8
                 },
                 "end": {
-                  "line": 429,
+                  "line": 423,
                   "column": 9
                 }
               },
@@ -723,11 +723,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 431,
+                  "line": 425,
                   "column": 8
                 },
                 "end": {
-                  "line": 434,
+                  "line": 428,
                   "column": 9
                 }
               },
@@ -743,11 +743,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 436,
+                  "line": 430,
                   "column": 8
                 },
                 "end": {
-                  "line": 448,
+                  "line": 442,
                   "column": 9
                 }
               },
@@ -763,11 +763,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 450,
+                  "line": 444,
                   "column": 8
                 },
                 "end": {
-                  "line": 454,
+                  "line": 448,
                   "column": 9
                 }
               },
@@ -787,11 +787,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 456,
+                  "line": 450,
                   "column": 8
                 },
                 "end": {
-                  "line": 463,
+                  "line": 457,
                   "column": 9
                 }
               },
@@ -823,7 +823,7 @@
               "column": 6
             },
             "end": {
-              "line": 464,
+              "line": 458,
               "column": 7
             }
           },
@@ -881,14 +881,14 @@
             },
             {
               "name": "renderer",
-              "description": "Custom function for rendering the content of the notification.\nReceives arguments `root`, `owner`, `model`\n\n`root` the `vaadin-notification-card` container element.\n\n`owner` the `<vaadin-notification>` element.\n\n`model` null\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.\n\n**NOTE:** `notification` does not have any specific properties to pass with the `model` object,\nit is set to null.",
+              "description": "Custom function for rendering the content of the notification.\nReceives arguments `root`, `notification`, `model`\n\n`root` the `vaadin-notification-card` container element.\n\n`notification` the reference to the notification element.\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.",
               "sourceRange": {
                 "start": {
-                  "line": 269,
+                  "line": 264,
                   "column": 12
                 },
                 "end": {
-                  "line": 272,
+                  "line": 267,
                   "column": 13
                 }
               },
@@ -900,11 +900,11 @@
               "description": "The template of the notification card content.",
               "sourceRange": {
                 "start": {
-                  "line": 277,
+                  "line": 272,
                   "column": 12
                 },
                 "end": {
-                  "line": 277,
+                  "line": 272,
                   "column": 28
                 }
               },
