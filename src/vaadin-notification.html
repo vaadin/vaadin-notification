@@ -254,7 +254,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
             /**
              * Custom function for rendering the content of the notification.
-             * Receives arguments `root`, `notification`, `model`
+             * Receives arguments `root`, `notification`
              *
              * `root` the `vaadin-notification-card` container element.
              *
@@ -270,7 +270,7 @@ This program is available under Apache License Version 2.0, available at https:/
             /**
              * The template of the notification card content.
              */
-            template: Object
+            _template: Object
           };
         }
 
@@ -316,14 +316,14 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _ensureTemplatized() {
-          this.template = this.querySelector('template') || this.template;
+          this._template = this.querySelector('template') || this._template;
 
-          if (!this.template) {
+          if (!this._template) {
             return;
           }
 
-          if (!this.template._Templatizer) {
-            this.template._Templatizer = Polymer.Templatize.templatize(this.template, this, {
+          if (!this._template._Templatizer) {
+            this._template._Templatizer = Polymer.Templatize.templatize(this._template, this, {
               forwardHostProp: function(prop, value) {
                 if (this._instance) {
                   this._instance.forwardHostProp(prop, value);
@@ -331,9 +331,9 @@ This program is available under Apache License Version 2.0, available at https:/
               }
             });
           }
-          this._instance = new this.template._Templatizer({});
+          this._instance = new this._template._Templatizer({});
 
-          const templateRoot = this.template.getRootNode();
+          const templateRoot = this._template.getRootNode();
           const isScoped = templateRoot !== document;
           this._card = this.$['vaadin-notification-card'];
           this._cardContent = this._card.shadowRoot.querySelector('[part~="content"]');
@@ -392,7 +392,7 @@ This program is available under Apache License Version 2.0, available at https:/
           }
 
           if (renderer) {
-            this.renderer(this._card, this, null);
+            this.renderer(this._card, this);
           } else {
             this._ensureTemplatized();
           }

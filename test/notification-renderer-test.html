@@ -60,10 +60,9 @@
           expect(notification._card.textContent.trim()).to.equal('renderer-content');
         });
 
-        it('renderer should receive notification and null as model when defined', () => {
-          notification.renderer = (root, notification, model) => {
+        it('renderer should receive notification when defined', () => {
+          notification.renderer = (root, notification) => {
             expect(notification).to.eql(notification);
-            expect(model).to.eql(null);
           };
         });
 

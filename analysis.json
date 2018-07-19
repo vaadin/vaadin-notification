@@ -507,7 +507,7 @@
             {
               "name": "renderer",
               "type": "Function | null | undefined",
-              "description": "Custom function for rendering the content of the notification.\nReceives arguments `root`, `notification`, `model`\n\n`root` the `vaadin-notification-card` container element.\n\n`notification` the reference to the notification element.\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.",
+              "description": "Custom function for rendering the content of the notification.\nReceives arguments `root`, `notification`\n\n`root` the `vaadin-notification-card` container element.\n\n`notification` the reference to the notification element.\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.",
               "privacy": "public",
               "sourceRange": {
                 "start": {
@@ -527,10 +527,10 @@
               }
             },
             {
-              "name": "template",
+              "name": "_template",
               "type": "Object | null | undefined",
               "description": "The template of the notification card content.",
-              "privacy": "public",
+              "privacy": "protected",
               "sourceRange": {
                 "start": {
                   "line": 272,
@@ -538,7 +538,7 @@
                 },
                 "end": {
                   "line": 272,
-                  "column": 28
+                  "column": 29
                 }
               },
               "metadata": {
@@ -881,7 +881,7 @@
             },
             {
               "name": "renderer",
-              "description": "Custom function for rendering the content of the notification.\nReceives arguments `root`, `notification`, `model`\n\n`root` the `vaadin-notification-card` container element.\n\n`notification` the reference to the notification element.\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.",
+              "description": "Custom function for rendering the content of the notification.\nReceives arguments `root`, `notification`\n\n`root` the `vaadin-notification-card` container element.\n\n`notification` the reference to the notification element.\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.",
               "sourceRange": {
                 "start": {
                   "line": 264,
@@ -894,22 +894,6 @@
               },
               "metadata": {},
               "type": "Function | null | undefined"
-            },
-            {
-              "name": "template",
-              "description": "The template of the notification card content.",
-              "sourceRange": {
-                "start": {
-                  "line": 272,
-                  "column": 12
-                },
-                "end": {
-                  "line": 272,
-                  "column": 28
-                }
-              },
-              "metadata": {},
-              "type": "Object | null | undefined"
             }
           ],
           "events": [
