@@ -284,8 +284,7 @@ This program is available under Apache License Version 2.0, available at https:/
             opened: {
               type: Boolean,
               value: false,
-              notify: true,
-              observer: '_openedChanged'
+              notify: true
             },
 
             /**
@@ -294,8 +293,7 @@ This program is available under Apache License Version 2.0, available at https:/
              */
             position: {
               type: String,
-              value: 'bottom-start',
-              observer: '_positionChanged'
+              value: 'bottom-start'
             },
 
             /**
@@ -318,7 +316,9 @@ This program is available under Apache License Version 2.0, available at https:/
         static get observers() {
           return [
             '_durationChanged(duration, opened)',
-            '_templateOrRendererChanged(_notificationTemplate, renderer, opened)'
+            '_templateOrRendererChanged(_notificationTemplate, renderer, opened)',
+            '_positionChanged(position, _card)',
+            '_openedChanged(opened, _card)'
           ];
         }
 
@@ -369,9 +369,6 @@ This program is available under Apache License Version 2.0, available at https:/
             }
 
             if (opened) {
-              if (!this._didAnimateNotificationAppend) {
-                this._animatedAppendNotificationCard();
-              }
               this.render();
             }
           }
@@ -399,14 +396,16 @@ This program is available under Apache License Version 2.0, available at https:/
           return NotificationElement._container;
         }
 
-        _openedChanged(opened) {
+        _openedChanged(opened, card) {
           if (opened) {
             this._container.opened = true;
             if (!this._instance && !this.renderer) {
               this._ensureTemplatized();
             }
 
-            this._animatedAppendNotificationCard();
+            if (card !== undefined) {
+              this._animatedAppendNotificationCard();
+            }
           } else if (this._card) {
             this._closeNotificationCard();
           }
@@ -472,18 +471,13 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _animatedAppendNotificationCard() {
-          if (this._card) {
-            this._card.setAttribute('opening', '');
-            this._appendNotificationCard();
-            const listener = () => {
-              this._card.removeEventListener('animationend', listener);
-              this._card.removeAttribute('opening');
-            };
-            this._card.addEventListener('animationend', listener);
-            this._didAnimateNotificationAppend = true;
-          } else {
-            this._didAnimateNotificationAppend = false;
-          }
+          this._card.setAttribute('opening', '');
+          this._appendNotificationCard();
+          const listener = () => {
+            this._card.removeEventListener('animationend', listener);
+            this._card.removeAttribute('opening');
+          };
+          this._card.addEventListener('animationend', listener);
         }
 
         _appendNotificationCard() {
@@ -530,7 +524,10 @@ This program is available under Apache License Version 2.0, available at https:/
           }
         }
 
-        _positionChanged(position) {
+        _positionChanged(position, card) {
+          if (position === undefined || card === undefined) {
+            return;
+          }
           if (this.opened) {
             this._animatedAppendNotificationCard();
           }
