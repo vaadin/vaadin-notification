@@ -317,8 +317,7 @@ This program is available under Apache License Version 2.0, available at https:/
           return [
             '_durationChanged(duration, opened)',
             '_templateOrRendererChanged(_notificationTemplate, renderer, opened)',
-            '_positionChanged(position, _card)',
-            '_openedChanged(opened, _card)'
+            '_positionOrOpenedChanged(opened, position, _card)'
           ];
         }
 
@@ -396,8 +395,8 @@ This program is available under Apache License Version 2.0, available at https:/
           return NotificationElement._container;
         }
 
-        _openedChanged(opened, card) {
-          if (opened) {
+        _positionOrOpenedChanged(opened, position, card) {
+          if (opened && position) {
             this._container.opened = true;
             if (!this._instance && !this.renderer) {
               this._ensureTemplatized();
@@ -521,15 +520,6 @@ This program is available under Apache License Version 2.0, available at https:/
             this._card.addEventListener('animationend', listener);
           } else {
             this._removeNotificationCard();
-          }
-        }
-
-        _positionChanged(position, card) {
-          if (position === undefined || card === undefined) {
-            return;
-          }
-          if (this.opened) {
-            this._animatedAppendNotificationCard();
           }
         }
 
