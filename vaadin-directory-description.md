@@ -12,8 +12,22 @@
 ## Example Usage
 ```html
 <vaadin-notification opened position="middle" duration="-1">
-  <template>
-    Your work has been saved
-  </template>
 </vaadin-notification>
+
+<script>
+  const notification = document.querySelector('vaadin-notification');
+
+  notification.renderer = function(root) {
+    // Check if there is a content generated with the previous renderer call not to recreate it.
+    if (root.firstElementChild) {
+      return;
+    }
+
+    const container = window.document.createElement('div');
+    const text = window.document.createTextNode('Your work has been saved');
+    
+    container.appendChild(text);
+    root.appendChild(container);
+  };
+</script>
 ```
