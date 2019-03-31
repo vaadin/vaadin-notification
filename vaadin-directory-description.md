@@ -12,8 +12,13 @@
 ## Example Usage
 ```html
 <vaadin-notification opened position="middle" duration="-1">
-  <template>
-    Your work has been saved
-  </template>
 </vaadin-notification>
+
+<script>
+  const notification = document.querySelector('vaadin-notification');
+
+  notification.renderer = function(root) {
+    root.textContent = 'Your work has been saved';
+  };
+</script>
 ```
