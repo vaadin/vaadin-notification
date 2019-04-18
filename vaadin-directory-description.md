@@ -11,8 +11,7 @@
 
 ## Example Usage
 ```html
-<vaadin-notification opened position="middle" duration="-1">
-</vaadin-notification>
+<vaadin-notification opened position="middle" duration="-1"></vaadin-notification>
 
 <script>
   const notification = document.querySelector('vaadin-notification');
