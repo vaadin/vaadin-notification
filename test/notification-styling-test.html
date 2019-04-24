@@ -7,6 +7,7 @@
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../test-fixture/test-fixture.html">
   <link rel="import" href="../vaadin-notification.html">
+  <link rel="import" href="../../vaadin-button/vaadin-button.html">
   <link rel="import" href="../../polymer/polymer-element.html">
 </head>
 
@@ -102,6 +103,12 @@
       <vaadin-notification theme="foo" duration="0">
         <template></template>
       </vaadin-notification>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="withButton">
+    <template>
+      <vaadin-notification theme="primary"></vaadin-notification>
     </template>
   </test-fixture>
 
@@ -237,6 +244,25 @@
             expect(getStyleScope(notificationCardContent)).to.equal('is-custom-element');
             notification.close();
             notification._removeNotificationCard();
+          });
+        });
+
+        describe('vaadin-button with ShadyCSS', () => {
+          it('should propagate CSS custom property to slotted vaadin-button', done => {
+            const notification = fixture('withButton');
+            const button = document.createElement('vaadin-button');
+            notification.renderer = (root, owner) => root.appendChild(button);
+            notification.open();
+
+            setTimeout(() => {
+              const buttonVar = window.ShadyCSS.getComputedStyleValue(
+                button, '--_lumo-button-color');
+              const cardVar = window.ShadyCSS.getComputedStyleValue(
+                notification._card, '--_lumo-button-color');
+              expect(buttonVar).to.equal(cardVar);
+              expect(buttonVar.length).to.be.ok;
+              done();
+            });
           });
         });
       }
