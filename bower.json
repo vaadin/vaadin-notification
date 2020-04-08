@@ -43,6 +43,6 @@
     "vaadin-text-field": "vaadin/vaadin-text-field#^2.6.0-alpha4"
   },
   "resolutions": {
-    "vaadin-element-mixin": "^2.0.0"
+    "vaadin-element-mixin": "^2.3.0"
   }
 }
