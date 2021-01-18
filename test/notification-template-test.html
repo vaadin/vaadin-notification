@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>vaadin-notification tests</title>
-  <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../test-fixture/test-fixture.html">
-  <link rel="import" href="../vaadin-notification.html">
+  <script src="../../../wct-browser-legacy/browser.js"></script>
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script type="module" src="../../../@polymer/test-fixture/test-fixture.js"></script>
+  <script type="module" src="../vaadin-notification.js"></script>
 </head>
 
 <body>
@@ -19,22 +19,23 @@
         </template>
       </vaadin-notification>
     </template>
-    <script>
-      window.addEventListener('WebComponentsReady', function() {
-        class XNotification extends Polymer.Element {
-          static get is() {
-            return 'x-notification';
-          }
-          static get properties() {
-            return {
-              message: String,
-              text: String
-            };
-          }
-        }
-        window.customElements.define(XNotification.is, XNotification);
-      });
-    </script>
+    <script type="module">
+import '@polymer/test-fixture/test-fixture.js';
+import '../vaadin-notification.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+class XNotification extends PolymerElement {
+  static get is() {
+    return 'x-notification';
+  }
+  static get properties() {
+    return {
+      message: String,
+      text: String
+    };
+  }
+}
+window.customElements.define(XNotification.is, XNotification);
+</script>
   </dom-module>
 
   <test-fixture id="binding">
@@ -43,36 +44,38 @@
     </template>
   </test-fixture>
 
-  <script>
-    describe('template', function() {
-      var container, notification;
+  <script type="module">
+import '@polymer/test-fixture/test-fixture.js';
+import '../vaadin-notification.js';
+describe('template', function() {
+  var container, notification;
 
-      beforeEach(() => {
-        container = fixture('binding');
-        notification = container.$.notification;
-      });
+  beforeEach(() => {
+    container = fixture('binding');
+    notification = container.$.notification;
+  });
 
-      afterEach(() => {
-        // Close to stop all pending timers.
-        notification.close();
-        notification._removeNotificationCard(); // Force sync card removal instead of waiting for the animation
-        // delete singleton reference, so as it's created in next test
-        delete notification.constructor._container;
-      });
+  afterEach(() => {
+    // Close to stop all pending timers.
+    notification.close();
+    notification._removeNotificationCard(); // Force sync card removal instead of waiting for the animation
+    // delete singleton reference, so as it's created in next test
+    delete notification.constructor._container;
+  });
 
-      describe('data-binding', () => {
-        it('notification should bind parent property', () => {
-          container.message = 'foo';
-          expect(notification._card.shadowRoot.querySelector('[part~="content"]').shadowRoot.textContent.trim()).to.equal('foo');
-        });
-
-        it('notification should support two-way data binding', () => {
-          const input = notification._card.shadowRoot.querySelector('[part~="content"]').shadowRoot.querySelector('input');
-          input.value = 'bar';
-          input.dispatchEvent(new CustomEvent('input'));
-          expect(container.text).to.equal('bar');
-        });
-      });
+  describe('data-binding', () => {
+    it('notification should bind parent property', () => {
+      container.message = 'foo';
+      expect(notification._card.shadowRoot.querySelector('[part~="content"]').shadowRoot.textContent.trim()).to.equal('foo');
     });
-  </script>
+
+    it('notification should support two-way data binding', () => {
+      const input = notification._card.shadowRoot.querySelector('[part~="content"]').shadowRoot.querySelector('input');
+      input.value = 'bar';
+      input.dispatchEvent(new CustomEvent('input'));
+      expect(container.text).to.equal('bar');
+    });
+  });
+});
+</script>
 </body>

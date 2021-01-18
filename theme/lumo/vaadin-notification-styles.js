@@ -1,9 +1,10 @@
-<link rel="import" href="../../../vaadin-lumo-styles/color.html">
-<link rel="import" href="../../../vaadin-lumo-styles/spacing.html">
-<link rel="import" href="../../../vaadin-lumo-styles/style.html">
-<link rel="import" href="../../../vaadin-lumo-styles/typography.html">
+import '@vaadin/vaadin-lumo-styles/color.js';
+import '@vaadin/vaadin-lumo-styles/spacing.js';
+import '@vaadin/vaadin-lumo-styles/style.js';
+import '@vaadin/vaadin-lumo-styles/typography.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-<dom-module id="lumo-notification-card" theme-for="vaadin-notification-card">
+const $_documentContainer = html`<dom-module id="lumo-notification-card" theme-for="vaadin-notification-card">
   <template>
     <style>
       :host {
@@ -44,25 +45,25 @@
         margin: var(--lumo-space-s) auto;
       }
 
-      :host([slot$="stretch"]) {
+      :host([slot\$="stretch"]) {
         margin: 0;
       }
 
-      :host([slot$="stretch"]) [part="overlay"] {
+      :host([slot\$="stretch"]) [part="overlay"] {
         border-radius: 0;
       }
 
       @media (min-width: 421px) {
-        :host(:not([slot$="stretch"])) {
+        :host(:not([slot\$="stretch"])) {
           display: flex;
         }
 
-        :host([slot$="end"]) {
+        :host([slot\$="end"]) {
           justify-content: flex-end;
         }
 
         :host([slot^="middle"]),
-        :host([slot$="center"]) {
+        :host([slot\$="center"]) {
           display: flex;
           justify-content: center;
         }
@@ -185,4 +186,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

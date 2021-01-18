@@ -1,8 +1,9 @@
-<link rel="import" href="../../../vaadin-material-styles/color.html">
-<link rel="import" href="../../../vaadin-material-styles/typography.html">
-<link rel="import" href="../../../vaadin-material-styles/shadow.html">
+import '@vaadin/vaadin-material-styles/color.js';
+import '@vaadin/vaadin-material-styles/typography.js';
+import '@vaadin/vaadin-material-styles/shadow.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-<dom-module id="material-notification-container" theme-for="vaadin-notification-container">
+const $_documentContainer = html`<dom-module id="material-notification-container" theme-for="vaadin-notification-container">
   <template>
     <style>
       :host {
@@ -22,9 +23,7 @@
       }
     </style>
   </template>
-</dom-module>
-
-<dom-module id="material-notification-card" theme-for="vaadin-notification-card">
+</dom-module><dom-module id="material-notification-card" theme-for="vaadin-notification-card">
   <template>
     <style include="material-color-dark">
       :host {
@@ -62,11 +61,11 @@
         margin: -8px 0;
       }
 
-      :host([slot$="stretch"]) {
+      :host([slot\$="stretch"]) {
         margin: 0 -4px;
       }
 
-      :host([slot$="stretch"]) [part="overlay"] {
+      :host([slot\$="stretch"]) [part="overlay"] {
         border-radius: 0;
       }
 
@@ -80,7 +79,7 @@
           margin: auto;
         }
 
-        :host([slot$="stretch"]) {
+        :host([slot\$="stretch"]) {
           margin: 0 -12px;
         }
       }
@@ -154,4 +153,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);
