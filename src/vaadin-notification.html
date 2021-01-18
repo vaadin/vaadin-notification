@@ -436,7 +436,6 @@ This program is available under Apache License Version 2.0, available at https:/
             }
 
             this._animatedAppendNotificationCard();
-            setTimeout(() => this._updateShadyButtonStyles());
           } else if (this._card) {
             this._closeNotificationCard();
           }
@@ -470,28 +469,16 @@ This program is available under Apache License Version 2.0, available at https:/
             if (!this._cardContent.shadowRoot) {
               this._cardContent.attachShadow({mode: 'open'});
             }
-            if (window.ShadyCSS && !window.ShadyCSS.nativeShadow) {
-              // Shady DOM
-              var shadyStyleScope = templateRoot.host && templateRoot.host.localName;
-              if (shadyStyleScope && shadyStyleScope.indexOf('-') === -1) {
-                shadyStyleScope = templateRoot.host.getAttribute('is');
-              }
 
-              if (shadyStyleScope) {
-                this._cardContent.setAttribute('is', shadyStyleScope);
-              }
-            } else {
-              // Shadow DOM
-              const scopeCssText = Array.from(templateRoot.querySelectorAll('style'))
-                .reduce((result, style) => result + style.textContent, '')
-                // The overlay root’s :host styles should not apply inside the overlay
-                .replace(/:host/g, ':host-nomatch');
+            const scopeCssText = Array.from(templateRoot.querySelectorAll('style'))
+              .reduce((result, style) => result + style.textContent, '')
+              // The overlay root’s :host styles should not apply inside the overlay
+              .replace(/:host/g, ':host-nomatch');
 
-              if (scopeCssText) {
-                const style = document.createElement('style');
-                style.textContent = scopeCssText;
-                this._cardContent.shadowRoot.appendChild(style);
-              }
+            if (scopeCssText) {
+              const style = document.createElement('style');
+              style.textContent = scopeCssText;
+              this._cardContent.shadowRoot.appendChild(style);
             }
 
             this._cardContent.shadowRoot.appendChild(this._instance.root);
@@ -580,30 +567,6 @@ This program is available under Apache License Version 2.0, available at https:/
             if (duration > 0) {
               this._durationTimeoutId = setTimeout(() => this.close(), duration);
             }
-          }
-        }
-
-        /** @private */
-        _updateShadyButtonStyles() {
-          // ShadyCSS doesn't propagate CSS properties to slotted children,
-          // so this is done manually to allow vaadin-buttons to be themed
-          // correctly on IE11
-          if (window.ShadyCSS && !this.__buttonStylesPending) {
-            customElements.whenDefined('vaadin-button').then(() => {
-              const isButton = node => node instanceof customElements.get('vaadin-button');
-              Array.from(this._card.querySelectorAll('*')).filter(isButton).forEach(btn => {
-                const styles = ['--_lumo-button-color', '--_lumo-button-background-color',
-                  '--_lumo-button-primary-color', '--_lumo-button-primary-background-color']
-                  .reduce((obj, propName) => {
-                    const propValue = window.ShadyCSS.getComputedStyleValue(this._card, propName);
-                    propValue && (obj[propName] = propValue);
-                    return obj;
-                  }, {});
-                btn.updateStyles(styles);
-              });
-              this.__buttonStylesPending = false;
-            });
-            this.__buttonStylesPending = true;
           }
         }
       }
