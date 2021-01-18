@@ -1,16 +1,8 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-
-import {templatize} from '@polymer/polymer/lib/utils/templatize.js';
-
 import {ElementMixin} from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
 import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
 import {ThemePropertyMixin} from '@vaadin/vaadin-themable-mixin/vaadin-theme-property-mixin.js';
-
-import {FlattenedNodesObserver} from '@polymer/polymer/lib/utils/flattened-nodes-observer.js';
-
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 
 /**
  * The container element for all notifications.
@@ -18,7 +10,7 @@ import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 declare class NotificationContainer extends
   ElementMixin(
   ThemableMixin(
-  PolymerElement)) {
+  HTMLElement)) {
 
   /**
    * True when the container is opened
@@ -51,8 +43,7 @@ declare global {
  */
 declare class NotificationCard extends
   ThemableMixin(
-  PolymerElement) {
-  ready(): void;
+  HTMLElement) {
 }
 
 /**
@@ -111,7 +102,7 @@ declare class NotificationCard extends
 declare class NotificationElement extends
   ThemePropertyMixin(
   ElementMixin(
-  PolymerElement)) {
+  HTMLElement)) {
 
   /**
    * The duration in milliseconds to show the notification.
@@ -144,7 +135,7 @@ declare class NotificationElement extends
    * The template of the notification card content.
    */
   _notificationTemplate: HTMLTemplateElement|undefined;
-  ready(): void;
+
   _setTemplateFromNodes(nodes: Node[]): void;
 
   /**

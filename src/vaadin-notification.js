@@ -14,7 +14,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /**
  * The container element for all notifications.
  *
- * @extends PolymerElement
+ * @extends HTMLElement
  * @mixes ElementMixin
  * @mixes ThemableMixin
  */
@@ -160,7 +160,7 @@ class NotificationContainer extends ThemableMixin(ElementMixin(PolymerElement)) 
  *
  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
  *
- * @extends PolymerElement
+ * @extends HTMLElement
  * @mixes ThemableMixin
  */
 class NotificationCard extends ThemableMixin(PolymerElement) {
@@ -250,7 +250,7 @@ class NotificationCard extends ThemableMixin(PolymerElement) {
  * Note: the `theme` attribute value set on `<vaadin-notification>` is
  * propagated to the internal `<vaadin-notification-card>`.
  *
- * @extends PolymerElement
+ * @extends HTMLElement
  * @mixes ThemePropertyMixin
  * @mixes ElementMixin
  */
