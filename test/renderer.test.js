@@ -1,51 +1,29 @@
-<!doctype html>
-
-<head>
-  <meta charset="UTF-8">
-  <title>vaadin-notification tests</title>
-  <script src="../../../wct-browser-legacy/browser.js"></script>
-  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-  <script type="module" src="../../../@polymer/test-fixture/test-fixture.js"></script>
-  <script type="module" src="../vaadin-notification.js"></script>
-</head>
-
-<body>
-  <test-fixture id="default">
-    <template>
-      <vaadin-notification></vaadin-notification>
-    </template>
-  </test-fixture>
-
-  <test-fixture id="with-template">
-    <template>
-      <vaadin-notification>
-        <template>
-          notification-content
-        </template>
-      </vaadin-notification>
-    </template>
-  </test-fixture>
-
-  <script type="module">
-import '@polymer/test-fixture/test-fixture.js';
+import { expect } from '@esm-bundle/chai';
+import { fixtureSync } from '@open-wc/testing-helpers';
+import sinon from 'sinon';
 import '../vaadin-notification.js';
-describe('vaadin-notification', function() {
+
+describe('vaadin-notification', () => {
   let rendererContent;
 
-  beforeEach(function() {
+  beforeEach(() => {
     rendererContent = document.createElement('p');
-    rendererContent.innerText = 'renderer-content';
+    rendererContent.textContent = 'renderer-content';
   });
 
   describe('without template', () => {
     let notification;
 
     beforeEach(() => {
-      notification = fixture('default');
+      notification = fixtureSync('<vaadin-notification></vaadin-notification>');
 
       // Force sync card attaching and removal instead of waiting for the animation
-      sinon.stub(notification, '_animatedAppendNotificationCard', () => notification._appendNotificationCard());
-      sinon.stub(notification, '_animatedRemoveNotificationCard', () => notification._removeNotificationCard());
+      sinon
+        .stub(notification, '_animatedAppendNotificationCard')
+        .callsFake(() => notification._appendNotificationCard());
+      sinon
+        .stub(notification, '_animatedRemoveNotificationCard')
+        .callsFake(() => notification._removeNotificationCard());
 
       notification.open();
     });
@@ -58,7 +36,9 @@ describe('vaadin-notification', function() {
     });
 
     it('should use renderer when it is defined', () => {
-      notification.renderer = root => root.appendChild(rendererContent);
+      notification.renderer = (root) => {
+        root.appendChild(rendererContent);
+      };
       notification.opened = true;
       expect(notification._card.textContent.trim()).to.equal('renderer-content');
     });
@@ -82,13 +62,13 @@ describe('vaadin-notification', function() {
     it('should be possible to manually invoke renderer', () => {
       notification.renderer = sinon.spy();
       notification.opened = true;
-      expect(notification.renderer).to.be.calledOnce;
+      expect(notification.renderer.calledOnce).to.be.true;
       notification.render();
-      expect(notification.renderer).to.be.calledTwice;
+      expect(notification.renderer.calledTwice).to.be.true;
     });
 
     it('should provide root from the previous renderer call', () => {
-      notification.renderer = root => {
+      notification.renderer = (root) => {
         const generatedContent = document.createTextNode('rendered');
         root.appendChild(generatedContent);
       };
@@ -100,7 +80,7 @@ describe('vaadin-notification', function() {
 
     it('should clear the root when renderer changed', () => {
       for (let i = 0; i < 2; i++) {
-        notification.renderer = root => {
+        notification.renderer = (root) => {
           const generatedContent = document.createTextNode('rendered-' + i);
           root.appendChild(generatedContent);
         };
@@ -109,20 +89,17 @@ describe('vaadin-notification', function() {
       }
     });
 
-    it('should open notification when renderer is defined after notification opened', done => {
+    it('should open notification when renderer is defined after notification opened', () => {
       notification.opened = true;
-      notification.renderer = root => root.appendChild(rendererContent);
-
-      // Timeout needed for Firefox
-      setTimeout(() => {
-        const clientRect = notification._card.getBoundingClientRect();
-        expect(clientRect.x).to.not.equal(0);
-        expect(clientRect.y).to.not.equal(0);
-        expect(clientRect.width).to.not.equal(0);
-        expect(clientRect.height).to.not.equal(0);
-        expect(clientRect.top).to.not.equal(0);
-        done();
-      });
+      notification.renderer = (root) => {
+        root.appendChild(rendererContent);
+      };
+      const clientRect = notification._card.getBoundingClientRect();
+      expect(clientRect.x).to.not.equal(0);
+      expect(clientRect.y).to.not.equal(0);
+      expect(clientRect.width).to.not.equal(0);
+      expect(clientRect.height).to.not.equal(0);
+      expect(clientRect.top).to.not.equal(0);
     });
   });
 
@@ -130,11 +107,21 @@ describe('vaadin-notification', function() {
     let notification;
 
     beforeEach(() => {
-      notification = fixture('with-template');
+      notification = fixtureSync(`
+        <vaadin-notification>
+          <template>
+            notification-content
+          </template>
+        </vaadin-notification>
+      `);
 
       // Force sync card attaching and removal instead of waiting for the animation
-      sinon.stub(notification, '_animatedAppendNotificationCard', () => notification._appendNotificationCard());
-      sinon.stub(notification, '_animatedRemoveNotificationCard', () => notification._removeNotificationCard());
+      sinon
+        .stub(notification, '_animatedAppendNotificationCard')
+        .callsFake(() => notification._appendNotificationCard());
+      sinon
+        .stub(notification, '_animatedRemoveNotificationCard')
+        .callsFake(() => notification._removeNotificationCard());
 
       notification.open();
     });
@@ -152,14 +139,12 @@ describe('vaadin-notification', function() {
 
     it('should throw an error when setting a renderer if there is already a template', () => {
       notification._observer.flush();
-      expect(() => notification.renderer = () => {}).to.throw(Error);
+      expect(() => (notification.renderer = () => {})).to.throw(Error);
     });
 
     it('should remove renderer when added after template', () => {
-      expect(() => notification.renderer = () => {}).to.throw(Error);
+      expect(() => (notification.renderer = () => {})).to.throw(Error);
       expect(notification.renderer).to.be.not.ok;
     });
   });
 });
-</script>
-</body>
