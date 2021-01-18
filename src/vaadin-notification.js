@@ -20,73 +20,73 @@ import { ThemePropertyMixin } from '@vaadin/vaadin-themable-mixin/vaadin-theme-p
 class NotificationContainer extends ThemableMixin(ElementMixin(PolymerElement)) {
   static get template() {
     return html`
-    <style>
-      :host {
-        position: fixed;
-        z-index: 1000;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        box-sizing: border-box;
+      <style>
+        :host {
+          position: fixed;
+          z-index: 1000;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          box-sizing: border-box;
 
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        pointer-events: none;
-      }
-
-      [region-group] {
-        flex: 1 1 0%;
-        display: flex;
-      }
-
-      [region-group="top"] {
-        align-items: flex-start;
-      }
-
-      [region-group="bottom"] {
-        align-items: flex-end;
-      }
-
-      [region-group] > [region] {
-        flex: 1 1 0%;
-      }
-
-      @media (max-width: 420px) {
-        [region-group] {
+          display: flex;
           flex-direction: column;
           align-items: stretch;
+          pointer-events: none;
         }
 
-        [region-group="top"] {
-          justify-content: flex-start;
+        [region-group] {
+          flex: 1 1 0%;
+          display: flex;
         }
 
-        [region-group="bottom"] {
-          justify-content: flex-end;
+        [region-group='top'] {
+          align-items: flex-start;
+        }
+
+        [region-group='bottom'] {
+          align-items: flex-end;
         }
 
         [region-group] > [region] {
-          flex: initial;
+          flex: 1 1 0%;
         }
-      }
-    </style>
 
-    <div region="top-stretch"><slot name="top-stretch"></slot></div>
-    <div region-group="top">
-      <div region="top-start"><slot name="top-start"></slot></div>
-      <div region="top-center"><slot name="top-center"></slot></div>
-      <div region="top-end"><slot name="top-end"></slot></div>
-    </div>
-    <div region="middle"><slot name="middle"></slot></div>
-    <div region-group="bottom">
-      <div region="bottom-start"><slot name="bottom-start"></slot></div>
-      <div region="bottom-center"><slot name="bottom-center"></slot></div>
-      <div region="bottom-end"><slot name="bottom-end"></slot></div>
-    </div>
-    <div region="bottom-stretch"><slot name="bottom-stretch"></slot></div>
-`;
+        @media (max-width: 420px) {
+          [region-group] {
+            flex-direction: column;
+            align-items: stretch;
+          }
+
+          [region-group='top'] {
+            justify-content: flex-start;
+          }
+
+          [region-group='bottom'] {
+            justify-content: flex-end;
+          }
+
+          [region-group] > [region] {
+            flex: initial;
+          }
+        }
+      </style>
+
+      <div region="top-stretch"><slot name="top-stretch"></slot></div>
+      <div region-group="top">
+        <div region="top-start"><slot name="top-start"></slot></div>
+        <div region="top-center"><slot name="top-center"></slot></div>
+        <div region="top-end"><slot name="top-end"></slot></div>
+      </div>
+      <div region="middle"><slot name="middle"></slot></div>
+      <div region-group="bottom">
+        <div region="bottom-start"><slot name="bottom-start"></slot></div>
+        <div region="bottom-center"><slot name="bottom-center"></slot></div>
+        <div region="bottom-end"><slot name="bottom-end"></slot></div>
+      </div>
+      <div region="bottom-stretch"><slot name="bottom-stretch"></slot></div>
+    `;
   }
 
   static get is() {
@@ -138,7 +138,7 @@ class NotificationContainer extends ThemableMixin(ElementMixin(PolymerElement)) 
     const landscape = innerWidth > innerHeight;
     const clientHeight = document.documentElement.clientHeight;
     if (landscape && clientHeight > innerHeight) {
-      this.style.bottom = (clientHeight - innerHeight) + 'px';
+      this.style.bottom = clientHeight - innerHeight + 'px';
     } else {
       this.style.bottom = '0';
     }
@@ -165,22 +165,22 @@ class NotificationContainer extends ThemableMixin(ElementMixin(PolymerElement)) 
 class NotificationCard extends ThemableMixin(PolymerElement) {
   static get template() {
     return html`
-    <style>
-      :host {
-        display: block;
-      }
+      <style>
+        :host {
+          display: block;
+        }
 
-      [part="overlay"] {
-        pointer-events: auto;
-      }
-    </style>
+        [part='overlay'] {
+          pointer-events: auto;
+        }
+      </style>
 
-    <div part="overlay">
-      <div part="content">
-        <slot></slot>
+      <div part="overlay">
+        <div part="content">
+          <slot></slot>
+        </div>
       </div>
-    </div>
-`;
+    `;
   }
 
   static get is() {
@@ -256,14 +256,13 @@ class NotificationCard extends ThemableMixin(PolymerElement) {
 class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement)) {
   static get template() {
     return html`
-    <style>
-      :host {
-        display: none;
-      }
-    </style>
-    <vaadin-notification-card id="vaadin-notification-card" theme\$="[[theme]]">
-    </vaadin-notification-card>
-`;
+      <style>
+        :host {
+          display: none;
+        }
+      </style>
+      <vaadin-notification-card id="vaadin-notification-card" theme$="[[theme]]"> </vaadin-notification-card>
+    `;
   }
 
   static get is() {
@@ -339,7 +338,7 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
   ready() {
     super.ready();
 
-    this._observer = new FlattenedNodesObserver(this, info => {
+    this._observer = new FlattenedNodesObserver(this, (info) => {
       this._setTemplateFromNodes(info.addedNodes);
     });
   }
@@ -349,7 +348,8 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
    * @protected
    */
   _setTemplateFromNodes(nodes) {
-    this._notificationTemplate = nodes.filter(node => node.localName && node.localName === 'template')[0] || this._notificationTemplate;
+    this._notificationTemplate =
+      nodes.filter((node) => node.localName && node.localName === 'template')[0] || this._notificationTemplate;
   }
 
   /**
@@ -448,7 +448,7 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
 
     if (!this._notificationTemplate._Templatizer) {
       this._notificationTemplate._Templatizer = templatize(this._notificationTemplate, this, {
-        forwardHostProp: function(prop, value) {
+        forwardHostProp: function (prop, value) {
           if (this._instance) {
             this._instance.forwardHostProp(prop, value);
           }
@@ -462,9 +462,8 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
     this._card = this.$['vaadin-notification-card'];
     this._cardContent = this._card.shadowRoot.querySelector('[part~="content"]');
     if (isScoped) {
-
       if (!this._cardContent.shadowRoot) {
-        this._cardContent.attachShadow({mode: 'open'});
+        this._cardContent.attachShadow({ mode: 'open' });
       }
 
       const scopeCssText = Array.from(templateRoot.querySelectorAll('style'))
@@ -509,8 +508,7 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
     }
 
     if (!this._container.shadowRoot.querySelector(`slot[name="${this.position}"]`)) {
-      window.console.warn(
-        `Invalid alignment parameter provided: position=${this.position}`);
+      window.console.warn(`Invalid alignment parameter provided: position=${this.position}`);
       return;
     }
 
@@ -551,7 +549,7 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
   }
 
   /** @private */
-  _positionChanged(position) {
+  _positionChanged() {
     if (this.opened) {
       this._animatedAppendNotificationCard();
     }

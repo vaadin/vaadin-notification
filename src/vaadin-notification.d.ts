@@ -1,17 +1,13 @@
-import {ElementMixin} from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
+import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
-import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
+import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
-import {ThemePropertyMixin} from '@vaadin/vaadin-themable-mixin/vaadin-theme-property-mixin.js';
+import { ThemePropertyMixin } from '@vaadin/vaadin-themable-mixin/vaadin-theme-property-mixin.js';
 
 /**
  * The container element for all notifications.
  */
-declare class NotificationContainer extends
-  ElementMixin(
-  ThemableMixin(
-  HTMLElement)) {
-
+declare class NotificationContainer extends ElementMixin(ThemableMixin(HTMLElement)) {
   /**
    * True when the container is opened
    */
@@ -19,11 +15,10 @@ declare class NotificationContainer extends
 }
 
 declare global {
-
   interface HTMLElementTagNameMap {
-    "vaadin-notification-container": NotificationContainer;
-    "vaadin-notification-card": NotificationCard;
-    "vaadin-notification": NotificationElement;
+    'vaadin-notification-container': NotificationContainer;
+    'vaadin-notification-card': NotificationCard;
+    'vaadin-notification': NotificationElement;
   }
 }
 
@@ -41,10 +36,7 @@ declare global {
  *
  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
  */
-declare class NotificationCard extends
-  ThemableMixin(
-  HTMLElement) {
-}
+declare class NotificationCard extends ThemableMixin(HTMLElement) {}
 
 /**
  * `<vaadin-notification>` is a Web Component providing accessible and customizable notifications (toasts).
@@ -99,11 +91,7 @@ declare class NotificationCard extends
  * Note: the `theme` attribute value set on `<vaadin-notification>` is
  * propagated to the internal `<vaadin-notification-card>`.
  */
-declare class NotificationElement extends
-  ThemePropertyMixin(
-  ElementMixin(
-  HTMLElement)) {
-
+declare class NotificationElement extends ThemePropertyMixin(ElementMixin(HTMLElement)) {
   /**
    * The duration in milliseconds to show the notification.
    * Set to `0` or a negative number to disable the notification auto-closing.
@@ -129,12 +117,12 @@ declare class NotificationElement extends
    *   your content to it.
    * - `notification` The reference to the `<vaadin-notification>` element.
    */
-  renderer: NotificationRenderer|undefined;
+  renderer: NotificationRenderer | undefined;
 
   /**
    * The template of the notification card content.
    */
-  _notificationTemplate: HTMLTemplateElement|undefined;
+  _notificationTemplate: HTMLTemplateElement | undefined;
 
   _setTemplateFromNodes(nodes: Node[]): void;
 
@@ -154,8 +142,8 @@ declare class NotificationElement extends
   close(): void;
 }
 
-export {NotificationElement};
+export { NotificationElement };
 
-import {NotificationPosition} from '../@types/interfaces';
+import { NotificationPosition } from '../@types/interfaces';
 
-import {NotificationRenderer} from '../@types/interfaces';
+import { NotificationRenderer } from '../@types/interfaces';
