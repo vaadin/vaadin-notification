@@ -4,6 +4,19 @@ import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mix
 
 import { ThemePropertyMixin } from '@vaadin/vaadin-themable-mixin/vaadin-theme-property-mixin.js';
 
+export type NotificationPosition =
+  | 'top-stretch'
+  | 'top-start'
+  | 'top-center'
+  | 'top-end'
+  | 'middle'
+  | 'bottom-start'
+  | 'bottom-center'
+  | 'bottom-end'
+  | 'bottom-stretch';
+
+export type NotificationRenderer = (root: HTMLElement, notification?: NotificationElement) => void;
+
 /**
  * The container element for all notifications.
  */
@@ -12,14 +25,6 @@ declare class NotificationContainer extends ElementMixin(ThemableMixin(HTMLEleme
    * True when the container is opened
    */
   opened: boolean;
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'vaadin-notification-container': NotificationContainer;
-    'vaadin-notification-card': NotificationCard;
-    'vaadin-notification': NotificationElement;
-  }
 }
 
 /**
@@ -142,8 +147,12 @@ declare class NotificationElement extends ThemePropertyMixin(ElementMixin(HTMLEl
   close(): void;
 }
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'vaadin-notification-container': NotificationContainer;
+    'vaadin-notification-card': NotificationCard;
+    'vaadin-notification': NotificationElement;
+  }
+}
+
 export { NotificationElement };
-
-import { NotificationPosition } from '../@types/interfaces';
-
-import { NotificationRenderer } from '../@types/interfaces';
