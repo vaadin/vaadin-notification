@@ -349,7 +349,7 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
    */
   _setTemplateFromNodes(nodes) {
     this._notificationTemplate =
-      nodes.filter((node) => node.localName && node.localName === 'template')[0] || this._notificationTemplate;
+      nodes.find((node) => node.localName && node.localName === 'template') || this._notificationTemplate;
   }
 
   /**
@@ -457,11 +457,11 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
     }
     this._instance = new this._notificationTemplate._Templatizer({});
 
-    const templateRoot = this._notificationTemplate.getRootNode();
-    const isScoped = templateRoot !== document;
     this._card = this.$['vaadin-notification-card'];
     this._cardContent = this._card.shadowRoot.querySelector('[part~="content"]');
-    if (isScoped) {
+
+    const templateRoot = this._notificationTemplate.getRootNode();
+    if (templateRoot !== document) {
       if (!this._cardContent.shadowRoot) {
         this._cardContent.attachShadow({ mode: 'open' });
       }
