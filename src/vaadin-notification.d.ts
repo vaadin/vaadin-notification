@@ -4,18 +4,7 @@ import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mix
 
 import { ThemePropertyMixin } from '@vaadin/vaadin-themable-mixin/vaadin-theme-property-mixin.js';
 
-export type NotificationPosition =
-  | 'top-stretch'
-  | 'top-start'
-  | 'top-center'
-  | 'top-end'
-  | 'middle'
-  | 'bottom-start'
-  | 'bottom-center'
-  | 'bottom-end'
-  | 'bottom-stretch';
-
-export type NotificationRenderer = (root: HTMLElement, notification?: NotificationElement) => void;
+import { NotificationEventMap, NotificationPosition, NotificationRenderer } from './interfaces';
 
 /**
  * The container element for all notifications.
@@ -145,6 +134,18 @@ declare class NotificationElement extends ThemePropertyMixin(ElementMixin(HTMLEl
    * Closes the notification.
    */
   close(): void;
+
+  addEventListener<K extends keyof NotificationEventMap>(
+    type: K,
+    listener: (this: NotificationElement, ev: NotificationEventMap[K]) => void,
+    options?: boolean | AddEventListenerOptions
+  ): void;
+
+  removeEventListener<K extends keyof NotificationEventMap>(
+    type: K,
+    listener: (this: NotificationElement, ev: NotificationEventMap[K]) => void,
+    options?: boolean | EventListenerOptions
+  ): void;
 }
 
 declare global {
