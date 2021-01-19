@@ -508,7 +508,7 @@ class NotificationElement extends ThemePropertyMixin(ElementMixin(PolymerElement
     }
 
     if (!this._container.shadowRoot.querySelector(`slot[name="${this.position}"]`)) {
-      window.console.warn(`Invalid alignment parameter provided: position=${this.position}`);
+      console.warn(`Invalid alignment parameter provided: position=${this.position}`);
       return;
     }
 
