@@ -1,27 +1,22 @@
+# &lt;vaadin-notification&gt;
+
+> ⚠️ Starting from Vaadin 20, the source code and issues for this component are migrated to the [`vaadin/web-components`](https://github.com/vaadin/web-components/tree/master/packages/vaadin-notification) monorepository.
+> This repository contains the source code and releases of `<vaadin-notification>` for the Vaadin versions 10 to 19.
+
+[&lt;vaadin-notification&gt;](https://vaadin.com/components/vaadin-notification) is a Web Component providing accessible and customizable notifications (toasts), part of the [Vaadin components](https://vaadin.com/components).
+
+[Live Demo ↗](https://vaadin.com/components/vaadin-notification/html-examples)
+|
+[API documentation ↗](https://vaadin.com/components/vaadin-notification/html-api)
+
 [![npm version](https://badgen.net/npm/v/@vaadin/vaadin-notification)](https://www.npmjs.com/package/@vaadin/vaadin-notification)
 [![Bower version](https://badgen.net/github/release/vaadin/vaadin-notification)](https://github.com/vaadin/vaadin-notification/releases)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/vaadin/vaadin-notification)
 [![Build Status](https://travis-ci.org/vaadin/vaadin-notification.svg?branch=master)](https://travis-ci.org/vaadin/vaadin-notification)
 [![Coverage Status](https://coveralls.io/repos/github/vaadin/vaadin-notification/badge.svg?branch=master)](https://coveralls.io/github/vaadin/vaadin-notification?branch=master)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vaadin/web-components?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
 [![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/vaadinvaadin-notification)
 [![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/vaadinvaadin-notification.svg)](https://vaadin.com/directory/component/vaadinvaadin-notification)
-
-# &lt;vaadin-notification&gt;
-
-> ⚠️ 　Starting from Vaadin 20, this project has migrated to [`vaadin-web-components`](https://github.com/vaadin/vaadin-web-components/tree/master/packages/vaadin-notification) *monorepository*.
->
-> This repository is used for Vaadin 14 LTS and Vaadin 19.
-
----
-
-[Live Demo ↗](https://vaadin.com/components/vaadin-notification/html-examples)
-|
-[API documentation ↗](https://vaadin.com/components/vaadin-notification/html-api)
-
-
-[&lt;vaadin-notification&gt;](https://vaadin.com/components/vaadin-notification) is a Web Component providing accessible and customizable notifications (toasts), part of the [Vaadin components](https://vaadin.com/components).
 
 <!--
 ```
